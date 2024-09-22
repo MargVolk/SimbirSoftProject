@@ -13,16 +13,26 @@ import static ru.margarite.volkova.helpers.DataUtils.*;
 public class DeleteCustomerTests extends BaseTest {
     List<String> fistNameCustomers;
 
+    @DisplayName("Проверка элементов на странице \"Клиенты\"")
+    @Test
+    public void checkVerifyCustomers() {
+        new BankManagerPage(driver)
+                .getMenu()
+                .clickShowCustomersButton()
+                .verifyPage();
+    }
+
     @DisplayName("Удаление клиента с длиной имени равной среднему арифметическому")
     @Test
     public void deleteCustomerWithCondition() {
         fistNameCustomers = Arrays.asList("Ah", "Aba", "A");
 
         new BankManagerPage(driver)
+                .getMenu()
                 .clickAddCustomerButton()
-                .addCustomer(fistNameCustomers.get(0), getRandomLastName(), generatePostCode())
-                .addCustomer(fistNameCustomers.get(1), getRandomLastName(), generatePostCode())
-                .addCustomer(fistNameCustomers.get(2), getRandomLastName(), generatePostCode())
+                .addCustomer(fistNameCustomers.get(0), getLastNameFromList(), generatePostCode())
+                .addCustomer(fistNameCustomers.get(1), getLastNameFromList(), generatePostCode())
+                .addCustomer(fistNameCustomers.get(2), getLastNameFromList(), generatePostCode())
                 .getMenu().clickShowCustomersButton()
                 .deleteCustomer(averageLengthName(fistNameCustomers));
     }
@@ -33,11 +43,12 @@ public class DeleteCustomerTests extends BaseTest {
         fistNameCustomers = Arrays.asList("Albus", "Neville", "Voldemort", "Margota");
 
         new BankManagerPage(driver)
+                .getMenu()
                 .clickAddCustomerButton()
-                .addCustomer(fistNameCustomers.get(0), getRandomLastName(), generatePostCode())
-                .addCustomer(fistNameCustomers.get(1), getRandomLastName(), generatePostCode())
-                .addCustomer(fistNameCustomers.get(2), getRandomLastName(), generatePostCode())
-                .addCustomer(fistNameCustomers.get(3), getRandomLastName(), generatePostCode())
+                .addCustomer(fistNameCustomers.get(0), getLastNameFromList(), generatePostCode())
+                .addCustomer(fistNameCustomers.get(1), getLastNameFromList(), generatePostCode())
+                .addCustomer(fistNameCustomers.get(2), getLastNameFromList(), generatePostCode())
+                .addCustomer(fistNameCustomers.get(3), getLastNameFromList(), generatePostCode())
                 .getMenu().clickShowCustomersButton()
                 .deleteCustomer(averageLengthName(fistNameCustomers));
     }
@@ -48,10 +59,11 @@ public class DeleteCustomerTests extends BaseTest {
         fistNameCustomers = Arrays.asList("Kirill", "Margo", "Ellisa"); //
 
         new BankManagerPage(driver)
+                .getMenu()
                 .clickAddCustomerButton()
-                .addCustomer(fistNameCustomers.get(0), getRandomLastName(), generatePostCode())
-                .addCustomer(fistNameCustomers.get(1), getRandomLastName(), generatePostCode())
-                .addCustomer(fistNameCustomers.get(2), getRandomLastName(), generatePostCode())
+                .addCustomer(fistNameCustomers.get(0), getLastNameFromList(), generatePostCode())
+                .addCustomer(fistNameCustomers.get(1), getLastNameFromList(), generatePostCode())
+                .addCustomer(fistNameCustomers.get(2), getLastNameFromList(), generatePostCode())
                 .getMenu().clickShowCustomersButton()
                 .deleteCustomer(averageLengthName(fistNameCustomers));
     }

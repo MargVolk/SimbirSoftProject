@@ -7,19 +7,20 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import static ru.margarite.volkova.helpers.ElementMethods.clickButton;
+import static ru.margarite.volkova.helpers.ElementMethods.isClickable;
 
 public class Menu {
 
     private final WebDriver driver;
 
     @FindBy(xpath = "//button[contains(text(), 'Add Customer')]")
-    WebElement addCustomerButton;
+    private WebElement addCustomerButton;
 
     @FindBy(xpath = "//button[contains(text(), 'Open Account')]")
-    WebElement openAccountButton;
+    private WebElement openAccountButton;
 
     @FindBy(xpath = "//button[contains(text(), 'Customers')]")
-    WebElement showCustomersButton;
+    private WebElement showCustomersButton;
 
     protected Menu(WebDriver driver) {
         this.driver = driver;
@@ -36,5 +37,13 @@ public class Menu {
     public CustomersTable clickShowCustomersButton() {
         clickButton(showCustomersButton);
         return new CustomersTable(driver, this);
+    }
+
+    @Step("Проверка элементов у компонента")
+    public Menu verifyComponent() {
+        isClickable(addCustomerButton);
+        isClickable(openAccountButton);
+        isClickable(showCustomersButton);
+        return this;
     }
 }

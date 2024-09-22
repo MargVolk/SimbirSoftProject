@@ -12,20 +12,30 @@ import java.util.List;
 
 import static ru.margarite.volkova.helpers.ElementMethods.*;
 
-public class CustomersTable extends Table {
+public class CustomersTable extends BasePage implements Table {
     private final WebDriver driver;
     private final Menu menu;
 
     @FindBy(xpath = "//a[contains(text(),'First Name')]")
-    WebElement firstNameHeader;
+    private WebElement firstNameHeader;
 
     @FindBy(xpath = "//a[contains(text(),'Last Name')]")
-    WebElement lastNameHeader;
+    private WebElement lastNameHeader;
 
     @FindBy(xpath = "//a[contains(text(),'Post Code')]")
-    WebElement postCodeHeader;
+    private WebElement postCodeHeader;
+
+    @FindBy(xpath = "//input[@ng-model='searchCustomer']")
+    private WebElement searchInput;
+
+    @FindBy(xpath = "//td[contains(text(),'Account Number')]")
+    private WebElement accountHeader;
+
+    @FindBy(xpath = "//td[contains(text(),'Delete Customer')]")
+    private WebElement deleteHeader;
 
     public CustomersTable(WebDriver driver, Menu menu) {
+        super(driver);
         this.driver = driver;
         this.menu = menu;
         PageFactory.initElements(driver, this);
@@ -58,5 +68,19 @@ public class CustomersTable extends Table {
 
     public Menu getMenu() {
         return menu;
+    }
+
+    @Step("Проверка элементов на странице")
+    public CustomersTable verifyPage() {
+        menu.verifyComponent();
+
+        isClickable(searchInput);
+        placeholderShouldNaveText(searchInput, "Search Customer");
+        isClickable(firstNameHeader);
+        isClickable(lastNameHeader);
+        isClickable(postCodeHeader);
+        isVisible(accountHeader);
+        isVisible(deleteHeader);
+        return this;
     }
 }

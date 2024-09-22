@@ -21,6 +21,7 @@ public class SortCustomersTests extends BaseTest {
     public void createCustomersForSortTests() {
         randomData = generateCustomerData(5);
         AddCustomerForm addCustomerForm = new BankManagerPage(driver)
+                .getMenu()
                 .clickAddCustomerButton();
         for (Map<String, String> customer : randomData) {
             addCustomerForm.addCustomer(customer.get("firstName"), customer.get("lastName"), customer.get("postCode"));
@@ -31,6 +32,7 @@ public class SortCustomersTests extends BaseTest {
     @Test
     public void sortFirstNameInAsc() {
         customersTable = new BankManagerPage(driver)
+                .getMenu()
                 .clickShowCustomersButton();
         List<String> actualNames = customersTable
                 .doubleClickFirstName()
@@ -46,6 +48,7 @@ public class SortCustomersTests extends BaseTest {
     @Test
     public void sortFirstNameInDesc() {
         customersTable = new BankManagerPage(driver)
+                .getMenu()
                 .clickShowCustomersButton();
 
         List<String> actualNames = customersTable

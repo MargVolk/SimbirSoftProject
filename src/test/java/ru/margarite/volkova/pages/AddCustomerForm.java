@@ -9,23 +9,24 @@ import org.openqa.selenium.support.PageFactory;
 import static ru.margarite.volkova.helpers.DataUtils.generateFirstName;
 import static ru.margarite.volkova.helpers.ElementMethods.*;
 
-public class AddCustomerForm {
+public class AddCustomerForm extends BasePage {
     private final WebDriver driver;
     private final Menu menu;
 
     @FindBy(xpath = "//input[@ng-model='fName']")
-    WebElement firstNameInput;
+    private WebElement firstNameInput;
 
     @FindBy(xpath = "//input[@ng-model='lName']")
-    WebElement lastNameInput;
+    private WebElement lastNameInput;
 
     @FindBy(xpath = "//input[@ng-model='postCd']")
-    WebElement postCodeInput;
+    private WebElement postCodeInput;
 
     @FindBy(xpath = "//button[@type='submit']")
-    WebElement addCustomerSubmitButton;
+    private WebElement addCustomerSubmitButton;
 
     public AddCustomerForm(WebDriver driver, Menu menu) {
+        super(driver);
         this.driver = driver;
         this.menu = menu;
         PageFactory.initElements(driver, this);
@@ -72,5 +73,26 @@ public class AddCustomerForm {
     @Step("Проверка обязательности поля Post Code")
     public void isRequiredPostCodeName() {
         isRequired(postCodeInput);
+    }
+
+    @Step("Проверка элементов на странице")
+    public AddCustomerForm verifyPage() {
+        menu.verifyComponent();
+
+        isClickable(firstNameInput);
+        placeholderShouldNaveText(firstNameInput, "First Name");
+        labelShouldNaveText(firstNameInput, "First Name :");
+
+        isClickable(lastNameInput);
+        placeholderShouldNaveText(lastNameInput, "Last Name");
+        labelShouldNaveText(lastNameInput, "Last Name :");
+
+        isClickable(postCodeInput);
+        placeholderShouldNaveText(postCodeInput, "Post Code");
+        labelShouldNaveText(postCodeInput, "Post Code :");
+
+        isClickable(addCustomerSubmitButton);
+        shouldHaveText(addCustomerSubmitButton, "Add Customer");
+        return this;
     }
 }

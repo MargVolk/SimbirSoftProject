@@ -11,9 +11,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public abstract class Table {
-
-    public List<String> parseDataColumn(WebDriver driver, String columnName) {
+public interface Table {
+    default List<String> parseDataColumn(WebDriver driver, String columnName) {
         int indexColumn = driver.findElements(By.xpath("//thead/tr/td")).stream()
                 .map(WebElement::getText)
                 .toList()
@@ -23,7 +22,7 @@ public abstract class Table {
                 .map(WebElement::getText).toList();
     }
 
-    public List<HashMap<String, String>> parseDataRows(List<String> headers, List<WebElement> rows) {
+    default List<HashMap<String, String>> parseDataRows(List<String> headers, List<WebElement> rows) {
         List<HashMap<String, String>> dataRows = new ArrayList<>();
         for (WebElement row : rows) {
             List<String> dataRow = row.findElements(By.xpath("./td")).stream()

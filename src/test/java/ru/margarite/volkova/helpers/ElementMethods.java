@@ -2,6 +2,7 @@ package ru.margarite.volkova.helpers;
 
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
@@ -40,4 +41,33 @@ public class ElementMethods {
     public static void isRequired(WebElement element) {
         Assertions.assertEquals("true", element.getAttribute("required"), "Элемент не обязательный");
     }
+
+    public static void shouldHaveText(WebElement element, String expectedText) {
+        isVisible(element);
+        Assertions.assertEquals(expectedText, element.getText(), "Элемент не содержит " + expectedText + " текст");
+    }
+
+    public static void isClickable(WebElement button) {
+        Assertions.assertTrue(button.isEnabled() && button.isDisplayed(), "Элемент не кликабельный");
+    }
+
+    public static void isVisible(WebElement element) {
+        Assertions.assertTrue(element.isDisplayed(), "Элемент не видим");
+    }
+
+    public static void isNotVisible(WebElement element) {
+        Assertions.assertFalse(element.isDisplayed(), "Элемент не видим");
+    }
+
+    public static void placeholderShouldNaveText(WebElement element, String expectedText) {
+        Assertions.assertEquals(expectedText, element.getAttribute("placeholder"),
+                "Плейсхолдер не содержит " + expectedText + " текст");
+    }
+
+    public static void labelShouldNaveText(WebElement element, String expectedText) {
+        Assertions.assertEquals(expectedText, element.findElement(
+                        By.xpath("./parent::div[@class='form-group']/label")).getText(),
+                "Лейбл элемента не содержит " + expectedText + " текст");
+    }
+
 }

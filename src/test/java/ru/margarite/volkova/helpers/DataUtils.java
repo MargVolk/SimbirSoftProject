@@ -56,7 +56,7 @@ public class DataUtils {
         return "";
     }
 
-    public static String getRandomLastName() {
+    public static String getLastNameFromList() {
         List<String> list = Arrays.asList("Adrian", "Jacobson", "Hoggarth", "Andrews", "MacAdam", "Black", "Macey", "Bootman",
                 "Mansfield", "Marlow", "Carey", "Morrison", "Clapton");
         Random random = new SecureRandom();
@@ -70,7 +70,7 @@ public class DataUtils {
             String postCode = generatePostCode();
             Map<String, String> customer = Map.of(
                     "firstName", generateFirstName(postCode),
-                    "lastName", getRandomLastName(),
+                    "lastName", getLastNameFromList(),
                     "postCode", postCode
             );
             data.add(customer);
