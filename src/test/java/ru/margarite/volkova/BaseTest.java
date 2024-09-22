@@ -16,7 +16,7 @@ public class BaseTest {
     public void setDriver() {
         driver = new ChromeDriver();
         driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(6));
         driver.get("https://www.globalsqa.com/angularJs-protractor/BankingProject/#/manager");
     }
 

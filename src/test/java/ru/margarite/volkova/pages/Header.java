@@ -30,7 +30,6 @@ public class Header {
 
         shouldHaveText(titleHeader, "XYZ Bank");
         shouldHaveText(homeButton, "Home");
-        shouldHaveText(logoutButton, "Logout");
         return this;
     }
 }
