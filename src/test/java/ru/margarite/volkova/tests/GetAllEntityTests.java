@@ -13,22 +13,20 @@ import java.util.Map;
 import static ru.margarite.volkova.steps.ApiSteps.*;
 
 public class GetAllEntityTests extends BaseTest {
-    String id;
+    private List<String> id;
 
     @Test
     @DisplayName("Получение всех сущностей")
-    public void getAllEntity(Entity entity) {
-        id = create(reqSpec, entity);
-        entity.getAddition().setId(id);
-        entity.setId(id);
+    public void getAllEntity(List<Entity> entities) {
+        id = entities.stream().map(entity -> create(reqSpec, entity)).toList();
 
-        Assertions.assertEquals(new GetAllResponse(List.of(entity)), getAll(reqSpec, Map.of()));
+        Assertions.assertEquals(new GetAllResponse(entities), getAll(reqSpec, Map.of()));
     }
 
     @AfterEach
     public void deleteEntity() {
         if (id != null) {
-            delete(reqSpec, id);
+            id.forEach(id -> delete(reqSpec, id));
         }
     }
 }

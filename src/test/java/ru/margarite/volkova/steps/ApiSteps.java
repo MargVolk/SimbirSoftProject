@@ -53,16 +53,32 @@ public class ApiSteps {
 
     @Step("Отправка запроса create")
     public static String create(RequestSpecification reqSpec, Entity body) {
+        String id = create(reqSpec, body, SC_OK)
+                .extract()
+                .jsonPath()
+                .getString(".");
+
+        body.setId(id);
+        body.getAddition().setId(id);
+        return id;
+    }
+
+    @Step("Отправка невалидного запроса create")
+    public static String errorCreate(RequestSpecification reqSpec, Entity body) {
+        return create(reqSpec, body, SC_INTERNAL_SERVER_ERROR)
+                .extract()
+                .jsonPath()
+                .getString("error");
+    }
+
+    private static ValidatableResponse create(RequestSpecification reqSpec, Entity body, int statusCode) {
         return given()
                 .spec(reqSpec)
                 .body(body)
                 .when()
                 .post(CREATE)
                 .then()
-                .statusCode(SC_OK)
-                .extract()
-                .jsonPath()
-                .getString(".");
+                .statusCode(statusCode);
     }
 
     @Step("Отправка запроса delete ")
@@ -89,13 +105,25 @@ public class ApiSteps {
 
     @Step("Отправка запроса patch")
     public static void patch(RequestSpecification reqSpec, String pathVariable, Entity body) {
-        given()
+        patch(reqSpec, pathVariable, body, SC_NO_CONTENT);
+    }
+
+    @Step("Отправка невалидного запроса patch")
+    public static String errorPatch(RequestSpecification reqSpec, String pathVariable, Entity body) {
+        return patch(reqSpec, pathVariable, body, SC_BAD_REQUEST)
+                .extract()
+                .jsonPath()
+                .getString("error");
+    }
+
+    private static ValidatableResponse patch(RequestSpecification reqSpec, String pathVariable, Entity body, int statusCode) {
+        return given()
                 .spec(reqSpec)
                 .body(body)
                 .when()
                 .patch(PATCH, pathVariable)
                 .then()
-                .statusCode(SC_NO_CONTENT);
+                .statusCode(statusCode);
     }
 
 }

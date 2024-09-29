@@ -5,10 +5,11 @@ import io.restassured.specification.RequestSpecification;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.extension.ExtendWith;
 import ru.margarite.volkova.extensions.EntityData;
+import ru.margarite.volkova.extensions.ListEntityData;
 
 import static ru.margarite.volkova.helpers.Specifications.requestSpecification;
 
-@ExtendWith(EntityData.class)
+@ExtendWith({EntityData.class, ListEntityData.class})
 public class BaseTest {
     protected final static RequestSpecification reqSpec = requestSpecification();
 

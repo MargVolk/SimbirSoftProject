@@ -17,6 +17,14 @@ public class DeleteEntityTests extends BaseTest {
     }
 
     @Test
+    @DisplayName("Повторное удаление сущности")
+    public void reDeleteEntity(Entity entity) {
+        String id = create(reqSpec, entity);
+        delete(reqSpec, id);
+        Assertions.assertEquals("no rows found for this id", errorDelete(reqSpec, id));
+    }
+
+    @Test
     @DisplayName("Удаление несуществующей сущности")
     public void deleteNoExistEntity() {
         Assertions.assertEquals("no rows found for this id", errorDelete(reqSpec, "100"));

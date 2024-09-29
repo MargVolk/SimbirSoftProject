@@ -10,14 +10,12 @@ import ru.margarite.volkova.dto.Entity;
 import static ru.margarite.volkova.steps.ApiSteps.*;
 
 public class GetEntityTests extends BaseTest {
-    String id;
+    private String id;
 
     @Test
     @DisplayName("Получение сущности по id")
     public void getEntity(Entity entity) {
         id = create(reqSpec, entity);
-        entity.getAddition().setId(id);
-        entity.setId(id);
 
         Assertions.assertEquals(entity, get(reqSpec, id));
     }

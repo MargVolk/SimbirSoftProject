@@ -1,20 +1,17 @@
 package ru.margarite.volkova.dto;
 
 import com.google.gson.annotations.SerializedName;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
 @Data
-@RequiredArgsConstructor
-@AllArgsConstructor
+@Builder
 public class Entity {
-    private final Addition addition;
+    private Addition addition;
     @SerializedName("important_numbers")
-    private final List<Integer> importantNumbers;
-    private final String title;
-    private final boolean verified;
+    private List<Integer> importantNumbers;
+    private String title;
+    private boolean verified;
     private String id;
 }
