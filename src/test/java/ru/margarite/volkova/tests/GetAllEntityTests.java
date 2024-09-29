@@ -24,9 +24,8 @@ public class GetAllEntityTests extends BaseTest {
     }
 
     @AfterEach
-    public void deleteEntity() {
-        if (id != null) {
-            id.forEach(id -> delete(reqSpec, id));
-        }
+    public void deleteEntities() {
+        List<String> ids = getAll(reqSpec, Map.of()).getEntity().stream().map(Entity::getId).toList();
+        ids.forEach(id -> delete(reqSpec, id));
     }
 }

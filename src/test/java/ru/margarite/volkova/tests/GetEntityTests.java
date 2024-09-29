@@ -7,6 +7,9 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import ru.margarite.volkova.dto.Entity;
 
+import java.util.List;
+import java.util.Map;
+
 import static ru.margarite.volkova.steps.ApiSteps.*;
 
 public class GetEntityTests extends BaseTest {
@@ -27,9 +30,8 @@ public class GetEntityTests extends BaseTest {
     }
 
     @AfterEach
-    public void deleteEntity() {
-        if (id != null) {
-            delete(reqSpec, id);
-        }
+    public void deleteEntities() {
+        List<String> ids = getAll(reqSpec, Map.of()).getEntity().stream().map(Entity::getId).toList();
+        ids.forEach(id -> delete(reqSpec, id));
     }
 }
